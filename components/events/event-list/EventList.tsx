@@ -1,9 +1,9 @@
-import EventItem from "./event-item/EventItem";
-import classes from "./event-list.module.css";
+import EventItem from "./event-item/event-item";
+import styles from "./event-list.module.css";
 
 function EventList({ items }) {
   return (
-    <ul className={classes.list}>
+    <ul className={styles.list}>
       {items.map((event) => (
         <EventItem key={event.id} {...event} />
       ))}
