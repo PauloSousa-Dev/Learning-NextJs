@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./button.module.css";
-function Button({ link, onClick, children }) {
+function Button({ link, onClick = null, children }) {
   if (link) {
     return (
       <Link href={link} className={styles.btn}>
