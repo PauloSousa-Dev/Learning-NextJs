@@ -4,3 +4,7 @@
   max-width: 40rem;
   text-align: center;
 }
+
+.title h1 {
+  margin-bottom: 1rem;
+}

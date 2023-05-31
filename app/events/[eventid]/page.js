@@ -1,10 +1,20 @@
-import { getEventById } from "@/dummy-data";
+import { getAllEvents, getEventById } from "@/helpers/api-util";
 import EventSummary from "@/components/events/event-list/event-detail/event-summary";
 import EventLogistics from "@/components/events/event-list/event-detail/event-logistics";
 import EventContent from "@/components/events/event-list/event-detail/event-content";
 import ErrorAlert from "@/components/ui/error-alert/error-alert";
-function EventDetailPage({ params: { eventid } }) {
-  const event = getEventById(eventid);
+
+export async function generateMetadata({ params: { eventid } }) {
+  const event = await getEventById(eventid);
+  const { title } = event;
+  return {
+    title: title,
+    description: "Find a lot of great events that allow you to evolve...",
+  };
+}
+
+async function EventDetailPage({ params: { eventid } }) {
+  const event = await getEventById(eventid);
   if (!event) {
     return (
       <ErrorAlert>
@@ -27,6 +37,14 @@ function EventDetailPage({ params: { eventid } }) {
       </EventContent>
     </>
   );
+}
+
+export async function generateStaticParams() {
+  const allEvents = await getAllEvents();
+
+  return allEvents.map((event) => ({
+    eventid: event.id,
+  }));
 }
 
 export default EventDetailPage;

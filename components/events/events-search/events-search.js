@@ -2,21 +2,19 @@
 import { useRef } from "react";
 import Button from "@/components/ui/Button/button";
 import styles from "./events-search.module.css";
+import { useRouter } from "next/navigation";
 
-function EventsSearch({ onSearch }) {
+function EventsSearch() {
+  const router = useRouter();
   const yearInputRef = useRef();
   const monthInputRef = useRef();
   function submitHandler(event) {
     event.preventDefault();
-    console.log(
-      "yearInputRef?.current?.value;",
-      yearInputRef?.current?.value,
-      monthInputRef
-    );
     const selectedYear = yearInputRef?.current?.value;
     const selectedMonth = monthInputRef?.current?.value;
 
-    onSearch(selectedYear, selectedMonth);
+    const fullPath = `/events/${selectedYear}/${selectedMonth}`;
+    router.push(fullPath);
   }
   return (
     <form className={styles.form} onSubmit={submitHandler}>

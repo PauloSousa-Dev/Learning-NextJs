@@ -1,21 +1,32 @@
 import EventList from "@/components/events/event-list/EventList";
-import { getFilteredEvents } from "@/dummy-data";
+import { getFilteredEvents } from "@/helpers/api-util";
 import ResultsTitle from "@/components/events/results-title/results-title";
 import Button from "@/components/ui/Button/button";
 import ErrorAlert from "@/components/ui/error-alert/error-alert";
 
-function FilteredEventsPage({ params: { slug } }) {
-  const filterData = slug;
+function getYearAndMonth(slug) {
+  const filteredYear = slug[0];
+  const filteredMonth = slug[1];
+  return {
+    numYear: +filteredYear,
+    numMonth: +filteredMonth,
+  };
+}
 
+export async function generateMetadata({ params: { slug } }) {
+  if (!slug) return;
+  const { numYear, numMonth } = getYearAndMonth(slug);
+  return {
+    title: title,
+    description: `All events for ${numMonth}/${numYear}`,
+  };
+}
+
+async function FilteredEventsPage({ params: { slug } }) {
   if (!slug) {
     return <p className="center"> Loading...</p>;
   }
-
-  const filteredYear = slug[0];
-  const filteredMonth = slug[1];
-  const numYear = +filteredYear;
-  const numMonth = +filteredMonth;
-
+  const { numYear, numMonth } = getYearAndMonth(slug);
   if (isNaN(numYear) || isNaN(numMonth) || numMonth > 12 || numMonth < 1) {
     return (
       <>
@@ -29,7 +40,7 @@ function FilteredEventsPage({ params: { slug } }) {
     );
   }
 
-  const filteredEvents = getFilteredEvents({
+  const filteredEvents = await getFilteredEvents({
     year: numYear,
     month: numMonth,
   });

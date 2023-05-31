@@ -1,23 +1,18 @@
-"use client";
 import EventList from "@/components/events/event-list/EventList";
-import { useRouter } from "next/navigation";
 import { getAllEvents } from "@/dummy-data";
 import EventsSearch from "@/components/events/events-search/events-search";
 
-function AllEventsPage() {
-  const router = useRouter();
-  const events = getAllEvents();
+export const metadata = {
+  title: "All events",
+  description: "Find a lot of great events that allow you to evolve...",
+};
 
-  function findEventsHandler(year, month) {
-    const fullPath = `/events/${year}/${month}`;
-    router.push(fullPath);
-  }
+export default function AllEventsPage() {
+  const events = getAllEvents();
   return (
-    <div>
-      <EventsSearch onSearch={findEventsHandler} />
+    <>
+      <EventsSearch />
       <EventList items={events} />
-    </div>
+    </>
   );
 }
-
-export default AllEventsPage;
