@@ -3,6 +3,7 @@ import EventSummary from "@/components/events/event-list/event-detail/event-summ
 import EventLogistics from "@/components/events/event-list/event-detail/event-logistics";
 import EventContent from "@/components/events/event-list/event-detail/event-content";
 import ErrorAlert from "@/components/ui/error-alert/error-alert";
+import Comments from "@/components/input/comments";
 
 export async function generateMetadata({ params: { eventid } }) {
   const event = await getEventById(eventid);
@@ -22,7 +23,7 @@ async function EventDetailPage({ params: { eventid } }) {
       </ErrorAlert>
     );
   }
-  const { description, title, date, location, image } = event;
+  const { id, description, title, date, location, image } = event;
   return (
     <>
       <EventSummary title={title} />
@@ -35,6 +36,7 @@ async function EventDetailPage({ params: { eventid } }) {
       <EventContent>
         <p>{description}</p>
       </EventContent>
+      <Comments eventid={id} />
     </>
   );
 }

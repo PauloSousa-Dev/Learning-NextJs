@@ -15,7 +15,7 @@ function EventItem({ title, image, date, location, id }) {
   const exploreLink = `/events/${id}`;
   return (
     <li className={styles.item}>
-      <Image src={"/" + image} alt={title} height={100} width={100} />
+      <Image src={"/" + image} alt={title} height={250} width={160} />
       <div className={styles.content}>
         <div className={styles.summary}>
           <h2>{title}</h2>
