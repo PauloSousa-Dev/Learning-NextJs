@@ -24,6 +24,7 @@ async function EventDetailPage({ params: { eventid } }) {
     );
   }
   const { id, description, title, date, location, image } = event;
+
   return (
     <>
       <EventSummary title={title} />
@@ -36,7 +37,7 @@ async function EventDetailPage({ params: { eventid } }) {
       <EventContent>
         <p>{description}</p>
       </EventContent>
-      <Comments eventid={id} />
+      <Comments eventId={id} />
     </>
   );
 }
